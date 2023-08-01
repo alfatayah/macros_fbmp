@@ -1,0 +1,128 @@
+﻿VERSION BUILD=8970419 RECORDER=FX
+SET !ERRORIGNORE YES
+SET !ERRORCONTINUE YES
+SET !EXTRACT_TEST_POPUP NO
+SET !TIMEOUT_STEP 100
+SET !LOOP 2
+'isi dengan nama csv dan nama folder gambar
+'keduanya wajib sama namanya juga tanpa spasi 
+SET !VAR2 master_cetakan_es
+'isi dengan nama user PC / Laptop. Umumnya ada di C
+'jika pakai spasi tambahkan <SP> Contoh : My<SP>PC
+SET !VAR3 C:\Users\Alfatayah
+
+SET !DATASOURCE_DELIMITER ;
+SET !DATASOURCE {{!VAR2}}.csv
+SET !VAR1 EVAL("var randomNumber=Math.floor(Math.random()*90 + 30); randomNumber;")
+TAB T=1
+URL GOTO=https://iphone.facebook.com/marketplace/selling/item/
+REFRESH
+'TAB OPEN'
+'TAB T=2'
+'URL GOTO=https://whoer.net/'
+WAIT SECONDS=5
+'TAB CLOSE'
+'TAB T=1'
+URL GOTO=https://facebook.com/marketplace/create
+WAIT SECONDS=5
+'CLICK BARANG DIJUAL
+TAG POS=1 TYPE=SPAN ATTR=TXT:"Barang Dijual"
+WAIT SECONDS=5
+REFRESH
+WAIT SECONDS=5
+
+'GET FB PROFILE NAME
+WAIT SECONDS=2
+TAG XPATH="//div[@aria-label='Marketplace']/div/div[2]/div/div/div[2]/div/div/div/div[1]/span/span" EXTRACT=TXT
+SET !EXTRACT EVAL("var s=\"{{!EXTRACT}}\"; s.toLowerCase()")
+SET !VAR4 EVAL("\"{{!EXTRACT}}\".replace(/\s/g, '');")
+WAIT SECONDS=2
+
+'UPLOAD IMAGES
+TAG POS=* TYPE=DIV ATTR=CLASS:"bp9cbjyn j83agx80"&&TXT:*
+WAIT SECONDS=1
+TAG POS=1 TYPE=INPUT:FILE ATTR=ID:* CONTENT={{!VAR3}}\Documents\iMacros\Datasources\FBMP\{{!VAR2}}\{{!COL1}}
+WAIT SECONDS=3
+SET Empty_Cell EVAL("var c3='{{!COL7}}'; var x,y,z; x=c3.length; if(x==0){z=0;} else{z=1;}; z;")
+TAG POS={{Empty_Cell}} TYPE=INPUT:FILE ATTR=ID:* CONTENT={{!VAR3}}\Documents\iMacros\Datasources\FBMP\{{!VAR2}}\{{!COL7}}
+WAIT SECONDS=3
+SET Empty_Cell EVAL("var c3='{{!COL8}}'; var x,y,z; x=c3.length; if(x==0){z=0;} else{z=1;}; z;")
+TAG POS={{Empty_Cell}} TYPE=INPUT:FILE ATTR=ID:* CONTENT={{!VAR3}}\Documents\iMacros\Datasources\FBMP\{{!VAR2}}\{{!COL8}}
+WAIT SECONDS=3
+SET Empty_Cell EVAL("var c3='{{!COL9}}'; var x,y,z; x=c3.length; if(x==0){z=0;} else{z=1;}; z;")
+TAG POS={{Empty_Cell}} TYPE=INPUT:FILE ATTR=ID:* CONTENT={{!VAR3}}\Documents\iMacros\Datasources\FBMP\{{!VAR2}}\{{!COL9}}
+WAIT SECONDS=3
+SET Empty_Cell EVAL("var c3='{{!COL10}}'; var x,y,z; x=c3.length; if(x==0){z=0;} else{z=1;}; z;")
+TAG POS={{Empty_Cell}} TYPE=INPUT:FILE ATTR=ID:* CONTENT={{!VAR3}}\Documents\iMacros\Datasources\FBMP\{{!VAR2}}\{{!COL10}}
+WAIT SECONDS=3
+SET Empty_Cell EVAL("var c3='{{!COL11}}'; var x,y,z; x=c3.length; if(x==0){z=0;} else{z=1;}; z;")
+TAG POS={{Empty_Cell}} TYPE=INPUT:FILE ATTR=ID:* CONTENT={{!VAR3}}\Documents\iMacros\Datasources\FBMP\{{!VAR2}}\{{!COL11}}
+WAIT SECONDS=3
+SET Empty_Cell EVAL("var c3='{{!COL12}}'; var x,y,z; x=c3.length; if(x==0){z=0;} else{z=1;}; z;")
+TAG POS={{Empty_Cell}} TYPE=INPUT:FILE ATTR=ID:* CONTENT={{!VAR3}}\Documents\iMacros\Datasources\FBMP\{{!VAR2}}\{{!COL12}}
+WAIT SECONDS=3
+SET Empty_Cell EVAL("var c3='{{!COL13}}'; var x,y,z; x=c3.length; if(x==0){z=0;} else{z=1;}; z;")
+TAG POS={{Empty_Cell}} TYPE=INPUT:FILE ATTR=ID:* CONTENT={{!VAR3}}\Documents\iMacros\Datasources\FBMP\{{!VAR2}}\{{!COL13}}
+WAIT SECONDS=3
+SET Empty_Cell EVAL("var c3='{{!COL14}}'; var x,y,z; x=c3.length; if(x==0){z=0;} else{z=1;}; z;")
+TAG POS={{Empty_Cell}} TYPE=INPUT:FILE ATTR=ID:* CONTENT={{!VAR3}}\Documents\iMacros\Datasources\FBMP\{{!VAR2}}\{{!COL14}}
+WAIT SECONDS=3
+SET Empty_Cell EVAL("var c3='{{!COL15}}'; var x,y,z; x=c3.length; if(x==0){z=0;} else{z=1;}; z;")
+TAG POS={{Empty_Cell}} TYPE=INPUT:FILE ATTR=ID:* CONTENT={{!VAR3}}\Documents\iMacros\Datasources\FBMP\{{!VAR2}}\{{!COL15}}
+WAIT SECONDS=3
+
+'ISI JUDUL
+TAG POS=1 TYPE=SPAN ATTR=TXT:Judul
+TAG POS=R1 TYPE=INPUT:TEXT ATTR=TXT:* CONTENT={{!COL2}}
+WAIT SECONDS=2
+
+'ISI HARGA
+TAG POS=1 TYPE=SPAN ATTR=TXT:Harga
+TAG POS=R1 TYPE=INPUT:TEXT ATTR=TXT:* CONTENT={{!COL3}}
+WAIT SECONDS=2
+
+'ISI KATEGORI
+TAG POS=1 TYPE=SPAN ATTR=TXT:Kategori
+TAG POS=R1 TYPE=DIV ATTR=TXT:*
+WAIT SECONDS=2
+TAG POS=1 TYPE=SPAN ATTR=TXT:{{!COL4}}
+WAIT SECONDS=2
+
+'ISI KONDISI
+TAG POS=1 TYPE=SPAN ATTR=TXT:Kondisi
+TAG POS=R1 TYPE=DIV ATTR=TXT:*
+TAG POS=3 TYPE=DIV ATTR=TXT:Baru
+WAIT SECONDS=2
+
+'ISI KETERANGAN
+TAG POS=1 TYPE=SPAN ATTR=TXT:Keterangan
+TAG POS=R1 TYPE=TEXTAREA ATTR=TXT:* CONTENT={{!COL5}}
+WAIT SECONDS=2
+
+'ISI LABEL PRODUK
+TAG POS=1 TYPE=SPAN ATTR=TXT:Label<SP>produk
+TAG POS=R1 TYPE=TEXTAREA ATTR=TXT:* CONTENT={{!COL16}}
+EVENT TYPE=KEYPRESS XPATH="//label[@aria-label='Label produk']/div/div/div/div[2]/textarea" CHAR="a" MODIFIERS="ctrl"
+EVENT TYPE=KEYPRESS XPATH="//label[@aria-label='Label produk']/div/div/div/div[2]/textarea" CHAR="x" MODIFIERS="ctrl"
+EVENT TYPE=KEYPRESS XPATH="//label[@aria-label='Label produk']/div/div/div/div[2]/textarea" CHAR="v" MODIFIERS="ctrl"
+WAIT SECONDS=2
+
+'ISI LOKASI
+TAG POS=1 TYPE=SPAN ATTR=TXT:Lokasi
+TAG POS=R1 TYPE=INPUT:TEXT ATTR=TXT:* CONTENT={{!COL6}}
+WAIT SECONDS=2
+EVENT TYPE=CLICK XPATH="//ul[@role='listbox']/li[1]/div/div/div/div/div/div/div/div/div/div/div" BUTTON=0
+'TAG POS=1 TYPE=SPAN ATTR=TXT:{{!COL6}}
+WAIT SECONDS=2
+
+'CLICK POST
+TAG POS=1 TYPE=SPAN ATTR=TXT:Selanjutnya
+TAG POS=1 TYPE=SPAN ATTR=TXT:Terbitkan
+
+WAIT SECONDS=15
+ADD !EXTRACT {{!LOOP}}
+SAVEAS TYPE=EXTRACT FOLDER=* FILE=WEB_{{!VAR4}}_{{!NOW:dd/mm/yyyy}}_{{!VAR2}}.txt
+
+
+REFRESH
+

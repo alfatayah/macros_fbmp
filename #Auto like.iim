@@ -1,0 +1,48 @@
+﻿VERSION BUILD=8970419 RECORDER=FX
+SET !ERRORIGNORE YES
+SET !ERRORCONTINUE YES
+SET !EXTRACT_TEST_POPUP NO
+SET !TIMEOUT_STEP 100
+
+
+
+'Posisi row pada csv di mulai darimana
+SET !LOOP 3
+
+'isi dengan nama csv dan nama folder gambar
+'keduanya wajib sama namanya juga tanpa spasi 
+SET !VAR2 account_secret
+'isi dengan nama user PC / Laptop. Umumnya ada di C
+'jika pakai spasi tambahkan <SP> Contoh : My<SP>PC
+SET !VAR3 C:\Users\Alfatayah
+
+SET !DATASOURCE_DELIMITER ;
+SET !DATASOURCE {{!VAR2}}.csv
+SET !VAR1 EVAL("var randomNumber=Math.floor(Math.random()*90 + 30); randomNumber;")
+
+URL GOTO=https://www.facebook.com
+SET !EXTRACT EVAL("var s=\"{{!EXTRACT}}\"; s.toLowerCase()")
+SET !VAR4 EVAL("\"{{!EXTRACT}}\".replace(/\s/g, '');")
+'Login Facebook
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:email CONTENT={{!COL1}}
+TAG POS=1 TYPE=INPUT:PASSWORD ATTR=ID:pass CONTENT={{!COL2}}
+WAIT SECONDS=3
+
+TAG POS=1 TYPE=BUTTON ATTR=NAME:login
+WAIT SECONDS=10
+URL GOTO=https://www.facebook.com
+REFRESH
+WAIT SECONDS=10
+
+TAG POS=2 TYPE=SPAN ATTR=TXT:Suka
+TAG POS=4 TYPE=SPAN ATTR=TXT:Suka
+TAG POS=6 TYPE=DIV ATTR=TXT:Suka
+TAG POS=8 TYPE=SPAN ATTR=TXT:Suka
+TAG POS=10 TYPE=SPAN ATTR=TXT:Suka
+TAG POS=12 TYPE=SPAN ATTR=TXT:Suka
+WAIT SECONDS=10
+ADD !EXTRACT {{!LOOP}}
+SAVEAS TYPE=EXTRACT FOLDER=* FILE=WEB_{{!VAR4}}_{{!NOW:dd/mm/yyyy}}_{{!VAR2}}.txt
+
+
+CLEAR 

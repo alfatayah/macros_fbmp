@@ -6,8 +6,8 @@ SET !TIMEOUT_STEP 100
 
 
 
-'Posisi row pada csv di mulai darimana
-SET !LOOP 3
+'Posisi row pada csv di mulai dari 2 sampai 9
+SET !LOOP 2
 
 'isi dengan nama csv dan nama folder gambar
 'keduanya wajib sama namanya juga tanpa spasi 
@@ -26,7 +26,6 @@ SET !VAR4 EVAL("\"{{!EXTRACT}}\".replace(/\s/g, '');")
 'Login Facebook
 TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:email CONTENT={{!COL1}}
 TAG POS=1 TYPE=INPUT:PASSWORD ATTR=ID:pass CONTENT={{!COL2}}
-WAIT SECONDS=3
 
 TAG POS=1 TYPE=BUTTON ATTR=NAME:login
 WAIT SECONDS=10
